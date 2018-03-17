@@ -32,5 +32,6 @@ HEADERS += \
 
 FORMS += \
     loginwindow.ui \
-    loginalert.ui \
-    adminmainmenu.ui
+    adminmainmenu.ui \
+    adminRegistrationUser.ui \
+    usermainmenu.ui

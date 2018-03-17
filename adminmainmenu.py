@@ -7,8 +7,16 @@
 # WARNING! All changes made in this file will be lost!
 
 from PyQt5 import QtCore, QtGui, QtWidgets
+import adminRegistrationUser
 
 class Ui_MainWindow(object):
+
+    def showPracownikWindow(self):
+        self.adminRegistration = QtWidgets.QMainWindow()
+        self.ui = adminRegistrationUser.Ui_MainWindow()
+        self.ui.setupUi(self.adminRegistration)
+        self.adminRegistration.show()
+
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
         MainWindow.resize(586, 467)
@@ -36,6 +44,10 @@ class Ui_MainWindow(object):
         self.btn_pracownik.setMinimumSize(QtCore.QSize(160, 50))
         self.btn_pracownik.setObjectName("btn_pracownik")
         self.verticalLayout.addWidget(self.btn_pracownik)
+        ############### Button Event ####################
+        self.btn_pracownik.clicked.connect(self.showPracownikWindow)
+        #################################################
+
         self.btn_pojazdy = QtWidgets.QPushButton(self.centralwidget)
         self.btn_pojazdy.setMinimumSize(QtCore.QSize(120, 50))
         self.btn_pojazdy.setObjectName("btn_pojazdy")
@@ -66,7 +78,7 @@ class Ui_MainWindow(object):
 
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
-        MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
+        MainWindow.setWindowTitle(_translate("MainWindow", "Admin"))
         self.btn_profil.setText(_translate("MainWindow", "Profil"))
         self.btn_komunikator.setText(_translate("MainWindow", "Komunikator"))
         self.btn_klient.setText(_translate("MainWindow", "Klient"))

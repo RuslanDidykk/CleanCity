@@ -7,15 +7,64 @@
 # WARNING! All changes made in this file will be lost!
 
 from PyQt5 import QtCore, QtGui, QtWidgets
+from PyQt5.QtWidgets import QWidget
+from PyQt5.QtCore import QCoreApplication
+from config import admin, user
+from database.DatabaseManager import DataBaseManager
+from dbmanagers.CheckManager import CheckManager
+from managers.WarningManger import WarningManager
+
 import adminmainmenu
-import loginalert
+import usermainmenu
 
 class Ui_MainWindow(object):
+
+    def __init__(self):
+        self.check_manager = CheckManager()
+        self.db = DataBaseManager()
+        self.warning_manager = WarningManager()
+
+
     def loginCheck(self):
-       self.adminMainWindow = QtWidgets.QMainWindow()
-       self.ui = adminmainmenu.Ui_MainWindow()
-       self.ui.setupUi(self.adminMainWindow)
-       self.adminMainWindow.show()
+        username = self.line_user_name.text()
+        password = self.line_password.text()
+
+        correction_logindata = self.check_manager.checkCorrectionLoginData(username,password)
+        if correction_logindata:
+            pass
+        else:
+            self.warning_manager.showWarningBox('testtitle', 'incorrect')
+            return None
+
+        userData = self.db.getUserData(username=username)
+        if userData:
+            try:
+                print(userData.user_name)
+            except:
+                self.warning_manager.showWarningBox('testtitle', 'incorrect')
+                return None
+        else:
+            pass
+
+        status = self.check_manager.checkLoginData(password=password,userData=userData)
+        if status:
+            pass
+        else:
+            self.warning_manager.showWarningBox('testtitle', 'incorrect')
+            return None
+
+        if userData.account_type == admin:
+            self.adminMainWindow = QtWidgets.QMainWindow()
+            self.ui = adminmainmenu.Ui_MainWindow()
+            self.ui.setupUi(self.adminMainWindow)
+            self.adminMainWindow.show()
+
+        elif userData.account_type == user:
+            self.userMainWindow = QtWidgets.QMainWindow()
+            self.ui = usermainmenu.Ui_MainWindow()
+            self.ui.setupUi(self.userMainWindow)
+            self.userMainWindow.show()
+
 
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
@@ -33,26 +82,26 @@ class Ui_MainWindow(object):
         self.horizontalLayout_2.setSpacing(6)
         self.horizontalLayout_2.setObjectName("horizontalLayout_2")
         self.label = QtWidgets.QLabel(self.centralWidget)
-        self.label.setMinimumSize(QtCore.QSize(50, 20))
+        self.label.setMinimumSize(QtCore.QSize(60, 20))
         self.label.setMaximumSize(QtCore.QSize(60, 20))
         self.label.setObjectName("label")
         self.horizontalLayout_2.addWidget(self.label)
-        self.lineEdit = QtWidgets.QLineEdit(self.centralWidget)
-        self.lineEdit.setObjectName("lineEdit")
-        self.horizontalLayout_2.addWidget(self.lineEdit)
+        self.line_user_name = QtWidgets.QLineEdit(self.centralWidget)
+        self.line_user_name.setObjectName("line_user_name")
+        self.horizontalLayout_2.addWidget(self.line_user_name)
         self.verticalLayout.addLayout(self.horizontalLayout_2)
         self.horizontalLayout = QtWidgets.QHBoxLayout()
         self.horizontalLayout.setSpacing(6)
         self.horizontalLayout.setObjectName("horizontalLayout")
         self.label_2 = QtWidgets.QLabel(self.centralWidget)
-        self.label_2.setMinimumSize(QtCore.QSize(50, 0))
+        self.label_2.setMinimumSize(QtCore.QSize(60, 0))
         self.label_2.setMaximumSize(QtCore.QSize(50, 20))
         self.label_2.setObjectName("label_2")
         self.horizontalLayout.addWidget(self.label_2)
-        self.lineEdit_2 = QtWidgets.QLineEdit(self.centralWidget)
-        self.lineEdit_2.setEchoMode(QtWidgets.QLineEdit.Password)
-        self.lineEdit_2.setObjectName("lineEdit_2")
-        self.horizontalLayout.addWidget(self.lineEdit_2)
+        self.line_password = QtWidgets.QLineEdit(self.centralWidget)
+        self.line_password.setEchoMode(QtWidgets.QLineEdit.Password)
+        self.line_password.setObjectName("line_password")
+        self.horizontalLayout.addWidget(self.line_password)
         self.verticalLayout.addLayout(self.horizontalLayout)
         self.verticalLayout_2.addLayout(self.verticalLayout)
         self.btn_login = QtWidgets.QPushButton(self.centralWidget)
@@ -74,7 +123,7 @@ class Ui_MainWindow(object):
 
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
-        MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
+        MainWindow.setWindowTitle(_translate("MainWindow", "Login"))
         self.label.setText(_translate("MainWindow", "Login"))
         self.label_2.setText(_translate("MainWindow", "Password"))
         self.btn_login.setText(_translate("MainWindow", "Zaloguj"))

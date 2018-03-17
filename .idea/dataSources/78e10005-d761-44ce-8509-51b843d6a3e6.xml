@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dataSource name="wspa@178.238.224.108">
+  <database-model serializer="dbm" rdbms="MYSQL" format-version="4.4">
+    <root id="1"/>
+    <schema id="2" parent="1" name="wspa">
+      <Current>1</Current>
+      <Visible>1</Visible>
+    </schema>
+    <schema id="3" parent="1" name="cloud_scraping"/>
+    <schema id="4" parent="1" name="dubizzle"/>
+    <schema id="5" parent="1" name="information_schema"/>
+    <schema id="6" parent="1" name="mysql"/>
+    <schema id="7" parent="1" name="performance_schema"/>
+    <schema id="8" parent="1" name="phpmyadmin"/>
+    <schema id="9" parent="1" name="spain_auction"/>
+    <schema id="10" parent="1" name="spain_realestate"/>
+    <schema id="11" parent="1" name="sys"/>
+    <schema id="12" parent="1" name="test_database"/>
+    <schema id="13" parent="1" name="zabbix"/>
+    <table id="14" parent="2" name="users"/>
+    <column id="15" parent="14" name="id">
+      <Position>1</Position>
+      <DataType>int(11)|0</DataType>
+      <NotNull>1</NotNull>
+      <SequenceIdentity>1</SequenceIdentity>
+    </column>
+    <column id="16" parent="14" name="user_name">
+      <Position>2</Position>
+      <DataType>varchar(20)|0</DataType>
+    </column>
+    <column id="17" parent="14" name="password">
+      <Position>3</Position>
+      <DataType>varchar(20)|0</DataType>
+    </column>
+    <column id="18" parent="14" name="account_type">
+      <Position>4</Position>
+      <DataType>varchar(15)|0</DataType>
+    </column>
+    <index id="19" parent="14" name="user_name">
+      <ColNames>user_name</ColNames>
+      <Unique>1</Unique>
+    </index>
+    <key id="20" parent="14" name="PRIMARY">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>id</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <key id="21" parent="14" name="user_name">
+      <ColNames>user_name</ColNames>
+      <UnderlyingIndexName>user_name</UnderlyingIndexName>
+    </key>
+  </database-model>
+</dataSource>

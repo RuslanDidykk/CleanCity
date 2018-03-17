@@ -14,22 +14,6 @@ class MyWin(QtWidgets.QMainWindow):
         self.ui = Ui_MainWindow()
         self.ui.setupUi(self)
 
-        # mainWindow = Ui_MainWindow()
-
-        # Здесь прописываем событие нажатия на кнопку        
-        # self.ui.btn_login.clicked.connect(self.loginCheck)
-        # self.ui.pushButton.clicked.connect(self.MyFunction)
-        # self.btn_login.clicked.connect(self.loginCheck)
-
-    # Пока пустая функция которая выполняется
-    # при нажатии на кнопку                  
-    # def loginCheck(self):
-    #    self.adminMainWindow = QtGui.Qadminmainpanel()
-    #    self.ui = Ui_MainWindow()
-    #    self.setupUi(self.adminmainpanel)
-    #    self.adminmainpanel.show()
-
-
 
 if __name__=="__main__":
     app = QtWidgets.QApplication(sys.argv)

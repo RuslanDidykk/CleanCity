@@ -7,7 +7,7 @@ from sqlalchemy import Integer
 from sqlalchemy import BOOLEAN
 from sqlalchemy import String
 
-# from database.config import database_uri
+from database.config import database_uri
 
 
 Base = declarative_base()
@@ -17,6 +17,7 @@ class Users(Base):
     id = Column(Integer, primary_key=True)
     user_name = Column(String(20), unique=True)
     password = Column(String(20))
+    account_type = Column(String(15))
 
 def create_DB():
     engine = create_engine(database_uri)

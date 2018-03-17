@@ -26,12 +26,12 @@ class DataBaseManager():
             session.close()
             self.con.close()
 
-    def addUser(self, id, user_name, password):
+    def addUser(self, username, password, account_type):
         with self.getConnection() as connection:
             try:
-                project = Users(id=id,
-                                user_name=user_name,
-                                password=password)
+                project = Users(user_name=username,
+                                password=password,
+                                account_type=account_type)
                 connection.add(project)
                 connection.flush()
                 connection.commit()
@@ -39,20 +39,15 @@ class DataBaseManager():
                 print (exc)
                 connection.rollback()
 
+    def getUserData(self, username):
+        with self.getConnection() as connection:
+            try:
+                data = connection.query(Users).filter(
+                        Users.user_name == username).first()
+                return data
+            except Exception as e:
+                print(e)
+                return Exception
 
-    # def selectALl(self):
-    #     with self.getConnection() as connection:
-    #         try:
-    #             data = connection.query(Project).filter(Project.project_id == 1).all()
-    #             #возвращает список обьектов
-    #
-    #             for user in data:
-    #                 print user.name
-    #         except Exception as e:
-    #             print e
-
-# db = DataBaseManager()
-# db.insert_urls()
-# db.addCar(model='BMW')
-# db.updateUser(1,2)
-# db.selectALl()
+if __name__ == '__main__':
+    print(DataBaseManager().getUserData(username="ruslan"))
