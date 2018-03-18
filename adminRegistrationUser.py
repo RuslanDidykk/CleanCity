@@ -19,10 +19,18 @@ class Ui_MainWindow(object):
         self.check_manager = CheckManager()
         self.warning_manager = WarningManager()
 
+    checkBox_admin = False
+
+    def checkBoxEvent(self, state):
+        if state == QtCore.Qt.Checked:
+            self.checkBox_admin = True
+        else:
+            self.checkBox_admin = False
 
     def addUser(self):
         username = self.lineEdit_login.text()
         password = self.lineEdit_haslo.text()
+        account_type = ''
 
         correction_logindata = self.check_manager.checkCorrectionLoginData(username,password)
         if correction_logindata:
@@ -31,7 +39,13 @@ class Ui_MainWindow(object):
             self.warning_manager.showWarningBox('testtitle', 'incorrect')
             return None
 
-        self.db.addUser(username,password, 'user')
+        if self.checkBox_admin:
+            account_type = 'admin'
+        else:
+            account_type = 'user'
+
+        self.db.addUser(username,password, account_type)
+        self.MainWindow.close()
 
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
@@ -172,6 +186,13 @@ class Ui_MainWindow(object):
         self.lineEdit_haslo.setObjectName("lineEdit_haslo")
         self.horizontalLayout.addWidget(self.lineEdit_haslo)
         self.verticalLayout.addLayout(self.horizontalLayout)
+        self.checkBox_admin = QtWidgets.QCheckBox(self.centralwidget)
+        self.checkBox_admin.setObjectName("checkBox_admin")
+        ############## CheckBox Event ####################
+        self.checkBox_admin.stateChanged.connect(self.checkBoxEvent)
+        ##################################################
+
+        self.verticalLayout.addWidget(self.checkBox_admin)
         self.horizontalLayout_11 = QtWidgets.QHBoxLayout()
         self.horizontalLayout_11.setObjectName("horizontalLayout_11")
         spacerItem10 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
@@ -208,7 +229,11 @@ class Ui_MainWindow(object):
         self.label_8.setText(_translate("MainWindow", "PESEL: "))
         self.label_9.setText(_translate("MainWindow", "Login: "))
         self.label_10.setText(_translate("MainWindow", "Haslo: "))
+        self.checkBox_admin.setText(_translate("MainWindow", "Give Admin status"))
         self.btn_registration.setText(_translate("MainWindow", "Zarejestruj"))
+
+        ####################################
+        self.MainWindow = MainWindow
 
 
 if __name__ == "__main__":

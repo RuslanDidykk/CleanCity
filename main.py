@@ -15,6 +15,8 @@ class MyWin(QtWidgets.QMainWindow):
         self.ui.setupUi(self)
 
 
+
+
 if __name__=="__main__":
     app = QtWidgets.QApplication(sys.argv)
     myapp = MyWin()

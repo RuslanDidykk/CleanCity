@@ -5,7 +5,9 @@
 # Created by: PyQt5 UI code generator 5.10.1
 #
 # WARNING! All changes made in this file will be lost!
+import sys
 
+import PyQt5
 from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtWidgets import QWidget
 from PyQt5.QtCore import QCoreApplication
@@ -24,8 +26,10 @@ class Ui_MainWindow(object):
         self.db = DataBaseManager()
         self.warning_manager = WarningManager()
 
-
     def loginCheck(self):
+        print('dsa')
+        # print(self.QtCore.close())
+        # return None
         username = self.line_user_name.text()
         password = self.line_password.text()
 
@@ -39,15 +43,16 @@ class Ui_MainWindow(object):
         userData = self.db.getUserData(username=username)
         if userData:
             try:
-                print(userData.user_name)
+                userData.password
             except:
                 self.warning_manager.showWarningBox('testtitle', 'incorrect')
                 return None
         else:
-            pass
+            self.warning_manager.showWarningBox('testtitle', 'incorrect')
+            return None
 
         status = self.check_manager.checkLoginData(password=password,userData=userData)
-        if status:
+        if status is True:
             pass
         else:
             self.warning_manager.showWarningBox('testtitle', 'incorrect')
@@ -58,13 +63,20 @@ class Ui_MainWindow(object):
             self.ui = adminmainmenu.Ui_MainWindow()
             self.ui.setupUi(self.adminMainWindow)
             self.adminMainWindow.show()
+            self.MainWindow.close()
 
         elif userData.account_type == user:
             self.userMainWindow = QtWidgets.QMainWindow()
             self.ui = usermainmenu.Ui_MainWindow()
             self.ui.setupUi(self.userMainWindow)
             self.userMainWindow.show()
+            self.MainWindow.close()
 
+    # def showWindow(self):
+    #     self.loginWindow = QtWidgets.QMainWindow()
+    #     self.ui = Ui_MainWindow()
+    #     self.ui.setupUi(self.loginWindow)
+    #     self.loginWindow.show()
 
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
@@ -121,6 +133,7 @@ class Ui_MainWindow(object):
         self.retranslateUi(MainWindow)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
+
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
         MainWindow.setWindowTitle(_translate("MainWindow", "Login"))
@@ -128,3 +141,16 @@ class Ui_MainWindow(object):
         self.label_2.setText(_translate("MainWindow", "Password"))
         self.btn_login.setText(_translate("MainWindow", "Zaloguj"))
 
+        ####################################
+        self.MainWindow = MainWindow
+
+
+
+if __name__ == "__main__":
+    import sys
+    app = QtWidgets.QApplication(sys.argv)
+    MainWindow = QtWidgets.QMainWindow()
+    ui = Ui_MainWindow()
+    ui.setupUi(MainWindow)
+    MainWindow.show()
+    sys.exit(app.exec_())

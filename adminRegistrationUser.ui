@@ -380,6 +380,13 @@
        </layout>
       </item>
       <item>
+       <widget class="QCheckBox" name="checkBox_admin">
+        <property name="text">
+         <string>Give Admin status</string>
+        </property>
+       </widget>
+      </item>
+      <item>
        <layout class="QHBoxLayout" name="horizontalLayout_11">
         <item>
          <spacer name="horizontalSpacer_12">

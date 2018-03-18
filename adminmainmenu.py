@@ -11,6 +11,7 @@ import adminRegistrationUser
 
 class Ui_MainWindow(object):
 
+
     def showPracownikWindow(self):
         self.adminRegistration = QtWidgets.QMainWindow()
         self.ui = adminRegistrationUser.Ui_MainWindow()
@@ -87,4 +88,7 @@ class Ui_MainWindow(object):
         self.btn_sprzet.setText(_translate("MainWindow", "Sprzet"))
         self.btn_karta.setText(_translate("MainWindow", "Karta"))
         self.btn_ramonogram.setText(_translate("MainWindow", "Harmonogram"))
+
+        ####################################
+        self.MainWindow = MainWindow
 
