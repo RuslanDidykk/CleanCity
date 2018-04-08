@@ -10,6 +10,8 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 from database.DatabaseManager import DataBaseManager
 from dbmanagers.CheckManager import CheckManager
 from managers.WarningManger import WarningManager
+from managers.EmailNotifications import EmailNotifications
+from helpers.Helpers import Helpers
 
 
 class Ui_MainWindow(object):
@@ -18,33 +20,66 @@ class Ui_MainWindow(object):
         self.db = DataBaseManager()
         self.check_manager = CheckManager()
         self.warning_manager = WarningManager()
+        self.email_notifications = EmailNotifications()
+        self.helpers = Helpers()
 
-    checkBox_admin = False
-
-    def checkBoxEvent(self, state):
-        if state == QtCore.Qt.Checked:
-            self.checkBox_admin = True
+    def radioIsChecked(self):
+        if self.radio_User.isChecked():
+            self.account_type = 'user'
+        elif self.radio_Admin.isChecked():
+            self.account_type = 'admin'
+        elif self.radio_Klient.isChecked():
+            self.account_type = 'klient'
         else:
-            self.checkBox_admin = False
+            return False
 
     def addUser(self):
         username = self.lineEdit_login.text()
         password = self.lineEdit_haslo.text()
-        account_type = ''
+        self.account_type = ''
+        mail = self.lineEdit_email.text()
+        imie = self.lineEdit_imie.text()
+        nazwisko = self.lineEdit_nazwisko.text()
+        telefon = self.lineEdit_telefon.text()
+        adres = self.lineEdit_Adres.text()
+        kod_pocztowy = self.lineEdit_kod_pocztowy.text()
+        pesel = self.lineEdit_PESEL.text()
 
-        correction_logindata = self.check_manager.checkCorrectionLoginData(username,password)
-        if correction_logindata:
-            pass
-        else:
-            self.warning_manager.showWarningBox('testtitle', 'incorrect')
+        if not self.helpers.checkCorrectionMail(mail):
+            self.warning_manager.showWarningBox('testtitle', 'incorrect mail!!!')
             return None
 
-        if self.checkBox_admin:
-            account_type = 'admin'
-        else:
-            account_type = 'user'
+        correction_logindata = self.check_manager.checkCorrectionLoginData(username,password)
+        if not correction_logindata:
+            self.warning_manager.showWarningBox('error', 'incorrect login data')
+            return None
 
-        self.db.addUser(username,password, account_type)
+        if self.radioIsChecked():
+            self.warning_manager.showWarningBox('error', 'please check an account type')
+            return None
+
+        data = {}
+        data['username'] = username
+        data['password'] = password
+        data['account_type'] = self.account_type
+        data['mail'] = mail
+        data['imie'] = imie
+        data['nazwisko'] = nazwisko
+        data['telefon'] = telefon
+        data['adres'] = adres
+        data['kod_pocztowy'] = kod_pocztowy
+        data['pesel'] = pesel
+
+        check_exception = self.db.addUser(data)
+        if check_exception:
+            self.warning_manager.showWarningBox('Error', str(check_exception))
+            return None
+
+        check_exception = self.email_notifications.sendUserRegistered(mail,username,password)
+        if check_exception:
+            self.warning_manager.showWarningBox('Error', str(check_exception))
+            return None
+
         self.MainWindow.close()
 
     def setupUi(self, MainWindow):
@@ -186,13 +221,17 @@ class Ui_MainWindow(object):
         self.lineEdit_haslo.setObjectName("lineEdit_haslo")
         self.horizontalLayout.addWidget(self.lineEdit_haslo)
         self.verticalLayout.addLayout(self.horizontalLayout)
-        self.checkBox_admin = QtWidgets.QCheckBox(self.centralwidget)
-        self.checkBox_admin.setObjectName("checkBox_admin")
-        ############## CheckBox Event ####################
-        self.checkBox_admin.stateChanged.connect(self.checkBoxEvent)
-        ##################################################
 
-        self.verticalLayout.addWidget(self.checkBox_admin)
+        self.radio_User = QtWidgets.QRadioButton(self.centralwidget)
+        self.radio_User.setObjectName("radio_User")
+        self.verticalLayout.addWidget(self.radio_User)
+        self.radio_Admin = QtWidgets.QRadioButton(self.centralwidget)
+        self.radio_Admin.setObjectName("radio_Admin")
+        self.verticalLayout.addWidget(self.radio_Admin)
+        self.radio_Klient = QtWidgets.QRadioButton(self.centralwidget)
+        self.radio_Klient.setObjectName("radio_Klient")
+        self.verticalLayout.addWidget(self.radio_Klient)
+
         self.horizontalLayout_11 = QtWidgets.QHBoxLayout()
         self.horizontalLayout_11.setObjectName("horizontalLayout_11")
         spacerItem10 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
@@ -229,7 +268,9 @@ class Ui_MainWindow(object):
         self.label_8.setText(_translate("MainWindow", "PESEL: "))
         self.label_9.setText(_translate("MainWindow", "Login: "))
         self.label_10.setText(_translate("MainWindow", "Haslo: "))
-        self.checkBox_admin.setText(_translate("MainWindow", "Give Admin status"))
+        self.radio_User.setText(_translate("MainWindow", "User"))
+        self.radio_Admin.setText(_translate("MainWindow", "Admin"))
+        self.radio_Klient.setText(_translate("MainWindow", "Klient"))
         self.btn_registration.setText(_translate("MainWindow", "Zarejestruj"))
 
         ####################################

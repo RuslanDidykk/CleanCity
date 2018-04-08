@@ -15,6 +15,7 @@ from config import max_len_password
 
 
 class CheckManager():
+
     def __init__(self):
         self.db = DataBaseManager()
 
@@ -45,25 +46,3 @@ class CheckManager():
                 return False
 
         return True
-
-
-# if __name__ == '__main__':
-#     CheckManager().checkUser('ruslan', 'didyk')
-
-
-    # def selectALl(self):
-    #     with self.getConnection() as connection:
-    #         try:
-    #             data = connection.query(Users).filter(Project.project_id == 1).all()
-    #             #возвращает список обьектов
-    #
-    #             for user in data:
-    #                 print user.name
-    #         except Exception as e:
-    #             print e
-
-# db = DataBaseManager()
-# db.insert_urls()
-# db.addCar(model='BMW')
-# db.updateUser(1,2)
-# db.selectALl()

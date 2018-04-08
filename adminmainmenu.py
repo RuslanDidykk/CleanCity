@@ -7,16 +7,23 @@
 # WARNING! All changes made in this file will be lost!
 
 from PyQt5 import QtCore, QtGui, QtWidgets
-import adminRegistrationUser
+import admindodaniesprzetu
+import adminpracownikmenu
 
 class Ui_MainWindow(object):
 
 
     def showPracownikWindow(self):
-        self.adminRegistration = QtWidgets.QMainWindow()
-        self.ui = adminRegistrationUser.Ui_MainWindow()
-        self.ui.setupUi(self.adminRegistration)
-        self.adminRegistration.show()
+        self.adminPracownikMenu = QtWidgets.QMainWindow()
+        self.ui = adminpracownikmenu.Ui_MainWindow()
+        self.ui.setupUi(self.adminPracownikMenu)
+        self.adminPracownikMenu.show()
+
+    def showDodanieSprzetuWindow(self):
+        self.adminDodanieSprzetu = QtWidgets.QMainWindow()
+        self.ui = admindodaniesprzetu.Ui_MainWindow()
+        self.ui.setupUi(self.adminDodanieSprzetu)
+        self.adminDodanieSprzetu.show()
 
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
@@ -53,10 +60,15 @@ class Ui_MainWindow(object):
         self.btn_pojazdy.setMinimumSize(QtCore.QSize(120, 50))
         self.btn_pojazdy.setObjectName("btn_pojazdy")
         self.verticalLayout.addWidget(self.btn_pojazdy)
+
         self.btn_sprzet = QtWidgets.QPushButton(self.centralwidget)
         self.btn_sprzet.setMinimumSize(QtCore.QSize(120, 50))
         self.btn_sprzet.setObjectName("btn_sprzet")
         self.verticalLayout.addWidget(self.btn_sprzet)
+        ############### Button Event ####################
+        self.btn_sprzet.clicked.connect(self.showDodanieSprzetuWindow)
+        #################################################
+
         self.btn_karta = QtWidgets.QPushButton(self.centralwidget)
         self.btn_karta.setMinimumSize(QtCore.QSize(120, 50))
         self.btn_karta.setObjectName("btn_karta")
@@ -90,5 +102,13 @@ class Ui_MainWindow(object):
         self.btn_ramonogram.setText(_translate("MainWindow", "Harmonogram"))
 
         ####################################
-        self.MainWindow = MainWindow
+        # self.MainWindow = MainWindow
 
+if __name__ == "__main__":
+    import sys
+    app = QtWidgets.QApplication(sys.argv)
+    MainWindow = QtWidgets.QMainWindow()
+    ui = Ui_MainWindow()
+    ui.setupUi(MainWindow)
+    MainWindow.show()
+    sys.exit(app.exec_())

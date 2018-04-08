@@ -10,7 +10,7 @@
     <x>0</x>
     <y>0</y>
     <width>429</width>
-    <height>439</height>
+    <height>501</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -380,9 +380,23 @@
        </layout>
       </item>
       <item>
-       <widget class="QCheckBox" name="checkBox_admin">
+       <widget class="QRadioButton" name="radio_User">
         <property name="text">
-         <string>Give Admin status</string>
+         <string>User</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QRadioButton" name="radio_Admin">
+        <property name="text">
+         <string>Admin</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QRadioButton" name="radio_Klient_2">
+        <property name="text">
+         <string>Klient</string>
         </property>
        </widget>
       </item>

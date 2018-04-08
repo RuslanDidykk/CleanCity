@@ -1,6 +1,5 @@
 import string
 
-
 admin = "admin"
 user = "user"
 
@@ -11,3 +10,6 @@ min_len_username = 3
 min_len_password = 4
 max_len_username = 20
 max_len_password = 20
+
+my_mail = 'ruslanpk3@gmail.com'
+my_password = 'ruslan22'

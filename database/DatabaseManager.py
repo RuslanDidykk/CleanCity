@@ -1,5 +1,5 @@
 # coding=utf-8
-from database.DatabaseModel import Users
+from database.DatabaseModel import Users, Sprzet
 
 from contextlib import contextmanager
 from sqlalchemy import create_engine
@@ -26,18 +26,63 @@ class DataBaseManager():
             session.close()
             self.con.close()
 
-    def addUser(self, username, password, account_type):
+    def addUser(self, data):
         with self.getConnection() as connection:
             try:
-                project = Users(user_name=username,
-                                password=password,
-                                account_type=account_type)
+                project = Users(user_name=data['username'],
+                                password=data['password'],
+                                account_type=data['account_type'],
+                                mail=data['mail'],
+                                imie=data['imie'],
+                                nazwisko=data['nazwisko'],
+                                telefon=data['telefon'],
+                                adres=data['adres'],
+                                kod_pocztowy=data['kod_pocztowy'],
+                                PESEL=data['pesel'])
+
                 connection.add(project)
                 connection.flush()
                 connection.commit()
             except Exception as exc:
                 print (exc)
                 connection.rollback()
+                return exc
+
+    def addSprzet(self, nazwa, ilosc):
+        with self.getConnection() as connection:
+            try:
+                project = Sprzet(sprzet=nazwa,
+                                ilosc=ilosc)
+
+                connection.add(project)
+                connection.flush()
+                connection.commit()
+            except Exception as exc:
+                print (exc)
+                connection.rollback()
+                return exc
+
+    def editUser(self, data):
+        with self.getConnection() as connection:
+            try:
+                smtp = update(Users).where(Users.user_name == data['username']). \
+                    values(
+                            password=data['password'],
+                            account_type=data['account_type'],
+                            mail=data['mail'],
+                            imie=data['imie'],
+                            nazwisko=data['nazwisko'],
+                            telefon=data['telefon'],
+                            adres=data['adres'],
+                            kod_pocztowy=data['kod_pocztowy'],
+                            PESEL=data['pesel']
+                           )
+                connection.execute(smtp)
+                connection.commit()
+            except Exception as exc:
+                print(exc)
+                connection.rollback()
+                return exc
 
     def getUserData(self, username):
         with self.getConnection() as connection:
@@ -50,4 +95,7 @@ class DataBaseManager():
                 return Exception
 
 if __name__ == '__main__':
-    print(DataBaseManager().getUserData(username="ruslan"))
+    data={}
+    data['username']='ruslan'
+    data['mail']='dsa@sad.dsa'
+    print(DataBaseManager().editUser(data=data))

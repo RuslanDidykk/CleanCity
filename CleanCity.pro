@@ -34,4 +34,7 @@ FORMS += \
     loginwindow.ui \
     adminmainmenu.ui \
     adminRegistrationUser.ui \
-    usermainmenu.ui
+    usermainmenu.ui \
+    admindodaniesprzetu.ui \
+    adminpracownikmenu.ui \
+    adminEditUser.ui

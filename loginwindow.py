@@ -27,9 +27,6 @@ class Ui_MainWindow(object):
         self.warning_manager = WarningManager()
 
     def loginCheck(self):
-        print('dsa')
-        # print(self.QtCore.close())
-        # return None
         username = self.line_user_name.text()
         password = self.line_password.text()
 
@@ -37,7 +34,7 @@ class Ui_MainWindow(object):
         if correction_logindata:
             pass
         else:
-            self.warning_manager.showWarningBox('testtitle', 'incorrect')
+            self.warning_manager.showWarningBox('testtitle', 'incorrect login data')
             return None
 
         userData = self.db.getUserData(username=username)
@@ -45,17 +42,15 @@ class Ui_MainWindow(object):
             try:
                 userData.password
             except:
-                self.warning_manager.showWarningBox('testtitle', 'incorrect')
+                self.warning_manager.showWarningBox('testtitle', 'incorrect password')
                 return None
         else:
-            self.warning_manager.showWarningBox('testtitle', 'incorrect')
+            self.warning_manager.showWarningBox('testtitle', 'incorrect incorrect password')
             return None
 
         status = self.check_manager.checkLoginData(password=password,userData=userData)
-        if status is True:
-            pass
-        else:
-            self.warning_manager.showWarningBox('testtitle', 'incorrect')
+        if status is not True:
+            self.warning_manager.showWarningBox('testtitle', 'user is not exist')
             return None
 
         if userData.account_type == admin:
@@ -72,11 +67,6 @@ class Ui_MainWindow(object):
             self.userMainWindow.show()
             self.MainWindow.close()
 
-    # def showWindow(self):
-    #     self.loginWindow = QtWidgets.QMainWindow()
-    #     self.ui = Ui_MainWindow()
-    #     self.ui.setupUi(self.loginWindow)
-    #     self.loginWindow.show()
 
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
