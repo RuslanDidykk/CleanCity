@@ -37,4 +37,7 @@ FORMS += \
     usermainmenu.ui \
     admindodaniesprzetu.ui \
     adminpracownikmenu.ui \
-    adminEditUser.ui
+    adminEditUser.ui \
+    adminpracownikusun.ui \
+    adminsprzetzmienilosc.ui \
+    adminsprzet.ui

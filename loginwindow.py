@@ -11,13 +11,14 @@ import PyQt5
 from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtWidgets import QWidget
 from PyQt5.QtCore import QCoreApplication
-from config import admin, user
+from config import admin, user, klient
 from database.DatabaseManager import DataBaseManager
 from dbmanagers.CheckManager import CheckManager
 from managers.WarningManger import WarningManager
 
 import adminmainmenu
 import usermainmenu
+import klientmainmenu
 
 class Ui_MainWindow(object):
 
@@ -65,6 +66,14 @@ class Ui_MainWindow(object):
             self.ui = usermainmenu.Ui_MainWindow()
             self.ui.setupUi(self.userMainWindow)
             self.userMainWindow.show()
+            self.MainWindow.close()
+
+        elif userData.account_type == klient:
+            print('321')
+            self.klientMainWindow = QtWidgets.QMainWindow()
+            self.ui = klientmainmenu.Ui_MainWindow()
+            self.ui.setupUi(self.klientMainWindow)
+            self.klientMainWindow.show()
             self.MainWindow.close()
 
 

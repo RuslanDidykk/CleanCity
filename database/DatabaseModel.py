@@ -1,4 +1,4 @@
-from sqlalchemy import Column, ForeignKey, Integer, String, Text, DateTime, BOOLEAN, TIMESTAMP, FLOAT
+from sqlalchemy import Column, ForeignKey, Integer, String, Text, DateTime, BOOLEAN, JSON, TIMESTAMP, FLOAT, ARRAY
 from sqlalchemy.dialects.postgresql import JSONB
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy import create_engine
@@ -25,14 +25,13 @@ class Users(Base):
     adres = Column(String(100))
     kod_pocztowy = Column(String(30))
     PESEL = Column(Integer, unique=True)
+    active = Column(BOOLEAN, default=True)
 
 class Sprzet(Base):
     __tablename__ = 'sprzet'
     id = Column(Integer, primary_key=True)
     sprzet = Column(String(60), unique=True)
-    numer = Column(Integer, unique=True)
     ilosc = Column(Integer)
-
 
 class Pojazd(Base):
     __tablename__ = 'pojazd'
@@ -43,7 +42,6 @@ class Order(Base):
     __tablename__ = 'zamowenie'
     id = Column(Integer, primary_key=True)
     klient_id = Column(Integer, ForeignKey('users.id'))
-
 
 
 def create_DB():

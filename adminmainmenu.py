@@ -9,6 +9,7 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
 import admindodaniesprzetu
 import adminpracownikmenu
+import adminsprzet
 
 class Ui_MainWindow(object):
 
@@ -21,7 +22,7 @@ class Ui_MainWindow(object):
 
     def showDodanieSprzetuWindow(self):
         self.adminDodanieSprzetu = QtWidgets.QMainWindow()
-        self.ui = admindodaniesprzetu.Ui_MainWindow()
+        self.ui = adminsprzet.Ui_MainWindow()
         self.ui.setupUi(self.adminDodanieSprzetu)
         self.adminDodanieSprzetu.show()
 

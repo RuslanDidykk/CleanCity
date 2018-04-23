@@ -88,14 +88,39 @@ class DataBaseManager():
         with self.getConnection() as connection:
             try:
                 data = connection.query(Users).filter(
-                        Users.user_name == username).first()
+                        Users.user_name == username,
+                        Users.active == True).first()
                 return data
             except Exception as e:
                 print(e)
-                return Exception
+                return None
+
+    def insert_not_active_status(self, username):
+        with self.getConnection() as connection:
+            try:
+                smtp = update(Users).where(Users.user_name == username). \
+                    values(active = False)
+                connection.execute(smtp)
+                connection.commit()
+            except Exception as exc:
+                print(exc)
+                connection.rollback()
+                return exc
+
+    def change_ilosc_sprzetu(self, nazwa_sprzetu, new_ilosc):
+        with self.getConnection() as connection:
+            try:
+                smtp = update(Sprzet).where(Sprzet.sprzet == nazwa_sprzetu). \
+                    values(ilosc = new_ilosc)
+                connection.execute(smtp)
+                connection.commit()
+            except Exception as exc:
+                print(exc)
+                connection.rollback()
+                return exc
 
 if __name__ == '__main__':
-    data={}
-    data['username']='ruslan'
-    data['mail']='dsa@sad.dsa'
-    print(DataBaseManager().editUser(data=data))
+    # print(DataBaseManager().editUser(data=data))
+    # print(DataBaseManager().getUserData('ruslan'))
+    # print(DataBaseManager().getUserData('dmytro'))
+    DataBaseManager().insert_not_active_status('kanski')
