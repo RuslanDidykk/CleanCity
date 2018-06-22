@@ -8,10 +8,22 @@
 
 from PyQt5 import QtCore, QtGui, QtWidgets
 
+from project import harmonogram, harmonogram_user
+
+
 class Ui_MainWindow(object):
 
+    USER_NAME = ''
+
+    def __init__(self, user_name):
+        self.USER_NAME = user_name
+
+    def showHarmonogram(self):
+        self.adminPokazHarmonogram = QtWidgets.QMainWindow()
+        self.ui = harmonogram_user.Sheet(self.USER_NAME)
 
     def setupUi(self, MainWindow):
+
         MainWindow.setObjectName("MainWindow")
         MainWindow.resize(317, 268)
         self.centralwidget = QtWidgets.QWidget(MainWindow)
@@ -41,6 +53,10 @@ class Ui_MainWindow(object):
         self.statusbar = QtWidgets.QStatusBar(MainWindow)
         self.statusbar.setObjectName("statusbar")
         MainWindow.setStatusBar(self.statusbar)
+
+        ############### Button Event ####################
+        self.pushButton_2.clicked.connect(self.showHarmonogram)
+        # ###############################################
 
         self.retranslateUi(MainWindow)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)

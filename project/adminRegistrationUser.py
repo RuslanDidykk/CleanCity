@@ -75,10 +75,10 @@ class Ui_MainWindow(object):
             self.warning_manager.showWarningBox('Error', str(check_exception))
             return None
 
-        check_exception = self.email_notifications.sendUserRegistered(mail,username,password)
-        if check_exception:
-            self.warning_manager.showWarningBox('Error', str(check_exception))
-            return None
+        # check_exception = self.email_notifications.sendUserRegistered(mail,username,password)
+        # if check_exception:
+        #     self.warning_manager.showWarningBox('Error', str(check_exception))
+        #     return None
 
         self.MainWindow.close()
 
@@ -127,15 +127,6 @@ class Ui_MainWindow(object):
         self.verticalLayout.addLayout(self.horizontalLayout_9)
         self.horizontalLayout_8 = QtWidgets.QHBoxLayout()
         self.horizontalLayout_8.setObjectName("horizontalLayout_8")
-        self.label_4 = QtWidgets.QLabel(self.centralwidget)
-        self.label_4.setObjectName("label_4")
-        self.horizontalLayout_8.addWidget(self.label_4)
-        spacerItem2 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
-        self.horizontalLayout_8.addItem(spacerItem2)
-        self.lineEdit_id = QtWidgets.QLineEdit(self.centralwidget)
-        self.lineEdit_id.setMinimumSize(QtCore.QSize(280, 0))
-        self.lineEdit_id.setObjectName("lineEdit_id")
-        self.horizontalLayout_8.addWidget(self.lineEdit_id)
         self.verticalLayout.addLayout(self.horizontalLayout_8)
         self.horizontalLayout_7 = QtWidgets.QHBoxLayout()
         self.horizontalLayout_7.setObjectName("horizontalLayout_7")
@@ -260,7 +251,6 @@ class Ui_MainWindow(object):
         self.label_2.setText(_translate("MainWindow", "Rejestracja Pracownika"))
         self.label.setText(_translate("MainWindow", "Imie:"))
         self.label_3.setText(_translate("MainWindow", "Nazwisko: "))
-        self.label_4.setText(_translate("MainWindow", "ID: "))
         self.label_5.setText(_translate("MainWindow", "Telefon: "))
         self.label_6.setText(_translate("MainWindow", "Adres email: "))
         self.label_7.setText(_translate("MainWindow", "Adres: "))

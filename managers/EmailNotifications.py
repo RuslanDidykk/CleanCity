@@ -1,7 +1,9 @@
 import smtplib
-from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
-from config import my_mail, my_password
+from email.mime.text import MIMEText
+
+from project.config import my_mail, my_password
+
 
 class EmailNotifications():
 

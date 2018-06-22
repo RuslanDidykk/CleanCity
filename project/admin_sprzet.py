@@ -6,26 +6,30 @@
 #
 # WARNING! All changes made in this file will be lost!
 
-from PyQt5 import QtCore, QtGui, QtWidgets
-import admindodaniesprzetu
-import adminsprzetzmienilosc
+from PyQt5 import QtCore, QtWidgets
+
+from project import admin_sprzet_dodanie, adminsprzetzmienilosc, admin_sprzet_pokaz
+
 
 class Ui_MainWindow(object):
 
-
     def showDodanieSprzetuWindow(self):
         self.adminDodanieSprzetu = QtWidgets.QMainWindow()
-        self.ui = admindodaniesprzetu.Ui_MainWindow()
+        self.ui = admin_sprzet_dodanie.Ui_MainWindow()
         self.ui.setupUi(self.adminDodanieSprzetu)
         self.adminDodanieSprzetu.show()
         self.MainWindow.close()
 
     def showZmienIloscWindow(self):
-        self.adminZmienIlosc= QtWidgets.QMainWindow()
+        self.adminZmienIlosc = QtWidgets.QMainWindow()
         self.ui = adminsprzetzmienilosc.Ui_MainWindow()
         self.ui.setupUi(self.adminZmienIlosc)
         self.adminZmienIlosc.show()
         self.MainWindow.close()
+
+    def showListSprzet(self):
+        self.adminPokazSprzet = QtWidgets.QMainWindow()
+        self.ui = admin_sprzet_pokaz.Sheet()
 
 
     def setupUi(self, MainWindow):
@@ -44,6 +48,7 @@ class Ui_MainWindow(object):
         self.pushButton.clicked.connect(self.showDodanieSprzetuWindow)
         #################################################
         self.verticalLayout.addWidget(self.pushButton)
+
         self.pushButton_2 = QtWidgets.QPushButton(self.centralwidget)
         self.pushButton_2.setMinimumSize(QtCore.QSize(0, 50))
         self.pushButton_2.setObjectName("pushButton_2")
@@ -51,6 +56,15 @@ class Ui_MainWindow(object):
         self.pushButton_2.clicked.connect(self.showZmienIloscWindow)
         #################################################
         self.verticalLayout.addWidget(self.pushButton_2)
+
+        self.pushButton_3 = QtWidgets.QPushButton(self.centralwidget)
+        self.pushButton_3.setMinimumSize(QtCore.QSize(0, 50))
+        self.pushButton_3.setObjectName("pushButton_3")
+        ############### Button Event ####################
+        self.pushButton_3.clicked.connect(self.showListSprzet)
+        #################################################
+        self.verticalLayout.addWidget(self.pushButton_3)
+
         self.verticalLayout_2.addLayout(self.verticalLayout)
         MainWindow.setCentralWidget(self.centralwidget)
         self.menubar = QtWidgets.QMenuBar(MainWindow)
@@ -69,6 +83,7 @@ class Ui_MainWindow(object):
         MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
         self.pushButton.setText(_translate("MainWindow", "Dodaj sprzet"))
         self.pushButton_2.setText(_translate("MainWindow", "Zmien Ilosc"))
+        self.pushButton_3.setText(_translate("MainWindow", "Pokaz sprzet"))
 
         ####################################
 

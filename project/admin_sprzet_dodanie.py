@@ -40,10 +40,19 @@ class Ui_MainWindow(object):
             self.warning_manager.showWarningBox('error', 'nie prawydlowa ilosc')
             return None
 
-        check_exception = self.db.addSprzet(nazwa_sprzetu, ilosc)
-        if check_exception:
-            self.warning_manager.showWarningBox('Error', str(check_exception))
-            return None
+        does_sprzet_exist = self.db.get_sprzet_info(nazwa_sprzetu=nazwa_sprzetu)
+        if does_sprzet_exist is not None:
+            current_amount = int(does_sprzet_exist.ilosc) + int(ilosc)
+            check_exception = self.db.change_ilosc_sprzetu(nazwa_sprzetu, current_amount)
+            if check_exception:
+                self.warning_manager.showWarningBox('Error', str(check_exception))
+                return None
+
+        else:
+            check_exception = self.db.addSprzet(nazwa_sprzetu, ilosc)
+            if check_exception:
+                self.warning_manager.showWarningBox('Error', str(check_exception))
+                return None
 
 
         self.MainWindow.close()

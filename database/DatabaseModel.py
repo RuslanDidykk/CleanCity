@@ -36,12 +36,25 @@ class Sprzet(Base):
 class Pojazd(Base):
     __tablename__ = 'pojazd'
     id = Column(Integer, primary_key=True)
-    numer = Column(Integer, unique=True)
+    numer = Column(String(20), unique=True)
+    nazwa = Column(String(100))
+    status = Column(String(100))
 
-class Order(Base):
-    __tablename__ = 'zamowenie'
+# class Order(Base):
+#     __tablename__ = 'zamowenie'
+#     id = Column(Integer, primary_key=True)
+#     klient_id = Column(Integer, ForeignKey('users.id'))
+
+class Harmonogram(Base):
+    __tablename__ = 'harmonogram'
     id = Column(Integer, primary_key=True)
-    klient_id = Column(Integer, ForeignKey('users.id'))
+    klient_nazwa = Column(String(200))
+    ulica = Column(String(200))
+    pracownik = Column(String(200))
+    pojazd = Column(String(200))
+    date = Column(DateTime)
+    sprzet = Column(String(1000))
+    sprzet_ilosc = Column(Integer)
 
 
 def create_DB():

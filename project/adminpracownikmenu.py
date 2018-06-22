@@ -6,11 +6,10 @@
 #
 # WARNING! All changes made in this file will be lost!
 
-from PyQt5 import QtCore, QtGui, QtWidgets
+from PyQt5 import QtCore, QtWidgets
 
-import adminRegistrationUser
-import adminEditUser
-import adminpracownikusun
+from project import admin_Edit_User, adminpracownikusun, \
+    adminRegistrationUser, admin_pokaz_pracownikow
 
 
 class Ui_MainWindow(object):
@@ -24,7 +23,7 @@ class Ui_MainWindow(object):
 
     def showEditWindow(self):
         self.adminEditUser = QtWidgets.QMainWindow()
-        self.ui = adminEditUser.Ui_MainWindow()
+        self.ui = admin_Edit_User.Ui_MainWindow()
         self.ui.setupUi(self.adminEditUser)
         self.adminEditUser.show()
         self.MainWindow.close()
@@ -35,6 +34,11 @@ class Ui_MainWindow(object):
         self.ui.setupUi(self.adminPracownikUsun)
         self.adminPracownikUsun.show()
         self.MainWindow.close()
+
+    def showAllUsers(self):
+        self.adminPokazPracownikow = QtWidgets.QMainWindow()
+        self.ui = admin_pokaz_pracownikow.Sheet()
+
 
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
@@ -62,6 +66,10 @@ class Ui_MainWindow(object):
         self.pushButton_2 = QtWidgets.QPushButton(self.centralwidget)
         self.pushButton_2.setMinimumSize(QtCore.QSize(0, 50))
         self.pushButton_2.setObjectName("pushButton_2")
+        ############### Button Event ####################
+        self.pushButton_2.clicked.connect(self.showAllUsers)
+        #################################################
+
         self.verticalLayout.addWidget(self.pushButton_2)
         self.pushButton_4 = QtWidgets.QPushButton(self.centralwidget)
         self.pushButton_4.setMinimumSize(QtCore.QSize(0, 50))

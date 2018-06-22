@@ -1,12 +1,10 @@
 # coding=utf-8
-from PyQt5.QtWidgets import *
-from PyQt5.QtGui import *
-from PyQt5 import QtCore 
 
-import sys
+from PyQt5 import QtWidgets
+
 # Импортируем наш интерфейс из файла
-from loginwindow import *
-from PyQt5 import QtCore, QtGui, QtWidgets
+from project.loginwindow import *
+
 
 class MyWin(QtWidgets.QMainWindow):
     def __init__(self, parent=None):

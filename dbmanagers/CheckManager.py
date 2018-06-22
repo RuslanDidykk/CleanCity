@@ -1,17 +1,11 @@
 # coding=utf-8
-from database.DatabaseModel import Users
 from database.DatabaseManager import DataBaseManager
-from contextlib import contextmanager
-from sqlalchemy import create_engine
-from sqlalchemy import update
-from sqlalchemy.orm import sessionmaker
-from database.config import database_uri
-from config import allowed_characters_for_username
-from config import allowed_characters_for_password
-from config import min_len_username
-from config import min_len_password
-from config import max_len_username
-from config import max_len_password
+from project.config import allowed_characters_for_password
+from project.config import allowed_characters_for_username
+from project.config import max_len_password
+from project.config import max_len_username
+from project.config import min_len_password
+from project.config import min_len_username
 
 
 class CheckManager():

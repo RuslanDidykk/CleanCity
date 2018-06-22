@@ -5,20 +5,16 @@
 # Created by: PyQt5 UI code generator 5.10.1
 #
 # WARNING! All changes made in this file will be lost!
-import sys
 
-import PyQt5
-from PyQt5 import QtCore, QtGui, QtWidgets
-from PyQt5.QtWidgets import QWidget
-from PyQt5.QtCore import QCoreApplication
-from config import admin, user, klient
+import project.klientmainmenu
+from PyQt5 import QtCore, QtWidgets
+
 from database.DatabaseManager import DataBaseManager
 from dbmanagers.CheckManager import CheckManager
 from managers.WarningManger import WarningManager
+from project import admin_main_menu, usermainmenu, klientmainmenu
+from project.config import admin, user, klient
 
-import adminmainmenu
-import usermainmenu
-import klientmainmenu
 
 class Ui_MainWindow(object):
 
@@ -56,14 +52,14 @@ class Ui_MainWindow(object):
 
         if userData.account_type == admin:
             self.adminMainWindow = QtWidgets.QMainWindow()
-            self.ui = adminmainmenu.Ui_MainWindow()
+            self.ui = admin_main_menu.Ui_MainWindow()
             self.ui.setupUi(self.adminMainWindow)
             self.adminMainWindow.show()
             self.MainWindow.close()
 
         elif userData.account_type == user:
             self.userMainWindow = QtWidgets.QMainWindow()
-            self.ui = usermainmenu.Ui_MainWindow()
+            self.ui = usermainmenu.Ui_MainWindow(username)
             self.ui.setupUi(self.userMainWindow)
             self.userMainWindow.show()
             self.MainWindow.close()
