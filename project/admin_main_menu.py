@@ -9,7 +9,8 @@
 from PyQt5 import QtCore, QtWidgets
 from PyQt5.Qt import QApplication, QComboBox
 
-from project import adminpracownikmenu, admin_sprzet, admin_add_pojazd, admin_harmonogram, admin_pojazd, admin_profil
+from project import adminpracownikmenu, admin_sprzet, admin_add_pojazd, admin_harmonogram, admin_pojazd, admin_profil, \
+    admin_zgloszenia_pokaz
 
 
 class Ui_MainWindow(object):
@@ -45,6 +46,10 @@ class Ui_MainWindow(object):
         self.ui.setupUi(self.adminProfil)
         self.adminProfil.show()
 
+    def showKlientWindow(self):
+        self.adminPokazHarmonogram = QtWidgets.QMainWindow()
+        self.ui = admin_zgloszenia_pokaz.Sheet()
+
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
         MainWindow.resize(586, 467)
@@ -72,6 +77,11 @@ class Ui_MainWindow(object):
         self.btn_klient = QtWidgets.QPushButton(self.centralwidget)
         self.btn_klient.setMinimumSize(QtCore.QSize(120, 50))
         self.btn_klient.setObjectName("btn_klient")
+
+        ############### Button Event ####################
+        self.btn_klient.clicked.connect(self.showKlientWindow)
+        #################################################
+
         self.verticalLayout.addWidget(self.btn_klient)
         self.btn_pracownik = QtWidgets.QPushButton(self.centralwidget)
         self.btn_pracownik.setMinimumSize(QtCore.QSize(160, 50))

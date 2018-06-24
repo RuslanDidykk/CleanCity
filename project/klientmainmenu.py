@@ -8,8 +8,19 @@
 
 from PyQt5 import QtCore, QtGui, QtWidgets
 
+from project import klient_zgloszenia_add
+
+
 class Ui_MainWindow(object):
 
+    def __init__(self, user_name):
+        self.USER_NAME = user_name
+
+    def showDodanieWindow(self):
+        self.adminDodanieSprzetu = QtWidgets.QMainWindow()
+        self.ui = klient_zgloszenia_add.Ui_MainWindow(self.USER_NAME)
+        self.ui.setupUi(self.adminDodanieSprzetu)
+        self.adminDodanieSprzetu.show()
 
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
@@ -28,10 +39,15 @@ class Ui_MainWindow(object):
         self.pushButton.setMinimumSize(QtCore.QSize(0, 50))
         self.pushButton.setObjectName("pushButton")
         self.verticalLayout.addWidget(self.pushButton)
-        self.pushButton_3 = QtWidgets.QPushButton(self.centralwidget)
-        self.pushButton_3.setMinimumSize(QtCore.QSize(0, 50))
-        self.pushButton_3.setObjectName("pushButton_3")
-        self.verticalLayout.addWidget(self.pushButton_3)
+        self.btn_zgloszenie = QtWidgets.QPushButton(self.centralwidget)
+        self.btn_zgloszenie.setMinimumSize(QtCore.QSize(0, 50))
+        self.btn_zgloszenie.setObjectName("pushButton_3")
+
+        ############### Button Event ####################
+        self.btn_zgloszenie.clicked.connect(self.showDodanieWindow)
+        #################################################
+
+        self.verticalLayout.addWidget(self.btn_zgloszenie)
         self.pushButton_2 = QtWidgets.QPushButton(self.centralwidget)
         self.pushButton_2.setMinimumSize(QtCore.QSize(0, 50))
         self.pushButton_2.setObjectName("pushButton_2")
@@ -50,7 +66,7 @@ class Ui_MainWindow(object):
         MainWindow.setWindowTitle(_translate("MainWindow", "Pracownik"))
         self.label.setText(_translate("MainWindow", "Profil pracownika"))
         self.pushButton.setText(_translate("MainWindow", "Profil"))
-        self.pushButton_3.setText(_translate("MainWindow", "Komunikator"))
+        self.btn_zgloszenie.setText(_translate("MainWindow", "Zgloszenie"))
         self.pushButton_2.setText(_translate("MainWindow", "Harmonogram"))
 
 

@@ -65,9 +65,8 @@ class Ui_MainWindow(object):
             self.MainWindow.close()
 
         elif userData.account_type == klient:
-            print('321')
             self.klientMainWindow = QtWidgets.QMainWindow()
-            self.ui = klientmainmenu.Ui_MainWindow()
+            self.ui = klientmainmenu.Ui_MainWindow(username)
             self.ui.setupUi(self.klientMainWindow)
             self.klientMainWindow.show()
             self.MainWindow.close()
