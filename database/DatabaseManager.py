@@ -3,7 +3,7 @@ from time import strftime, gmtime
 
 import dateparser
 
-from database.DatabaseModel import Users, Sprzet, Pojazd, Harmonogram
+from database.DatabaseModel import Users, Sprzet, Pojazd, Harmonogram, Orders
 
 from contextlib import contextmanager
 from sqlalchemy import create_engine, cast, Date, desc
@@ -109,6 +109,21 @@ class DataBaseManager():
                 print (exc)
                 connection.rollback()
                 return exc
+
+    def add_order(self, klient_username, ulicy):
+        with self.getConnection() as connection:
+            try:
+                project = Orders(klient_username=klient_username,
+                                 order_description=ulicy,
+                                 order_date=datetime.date.today())
+
+                connection.add(project)
+                connection.flush()
+                connection.commit()
+            except Exception as exc:
+                print (exc)
+                connection.rollback()
+                return str(exc)
 
     def add_pojazd(self, nazwa, numer):
         with self.getConnection() as connection:
@@ -223,6 +238,15 @@ class DataBaseManager():
                 print(e)
                 return None
 
+    def get_all_orders(self):
+        with self.getConnection() as connection:
+            try:
+                data = connection.query(Orders).all()
+                return data
+            except Exception as e:
+                print(e)
+                return None
+
     # def get_all_pojazd(self):
     #     with self.getConnection() as connection:
     #         try:
@@ -318,4 +342,4 @@ if __name__ == '__main__':
     # date = dateparser.parse('2018-05-25')
     # temp = datetime.date.today()
 
-    list_data = DataBaseManager().delete_wyjazd(1)
+    list_data = DataBaseManager().add_order('klient','ads')

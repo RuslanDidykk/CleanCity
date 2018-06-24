@@ -40,10 +40,12 @@ class Pojazd(Base):
     nazwa = Column(String(100))
     status = Column(String(100))
 
-# class Order(Base):
-#     __tablename__ = 'zamowenie'
-#     id = Column(Integer, primary_key=True)
-#     klient_id = Column(Integer, ForeignKey('users.id'))
+class Orders(Base):
+    __tablename__ = 'orders'
+    id = Column(Integer, primary_key=True)
+    klient_username = Column(String(500))
+    order_description = Column(String(500))
+    order_date = Column(DateTime)
 
 class Harmonogram(Base):
     __tablename__ = 'harmonogram'
